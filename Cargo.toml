@@ -1,0 +1,23 @@
+[package]
+name = "devano"
+version = "0.0.1"
+edition = "2024"
+description = "A CLI tool for Devano"
+authors = ["Mackenzie Bowes <mackenzie@mackenziebowes.com>"]
+license = "MIT"
+keywords = ["cli", "tool", "rust"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+anyhow = "1.0.98"
+clap = { version = "4.5.37", features = ["derive"] }
+cliclack = "0.3.6"
+console = "0.15.11"
+dialoguer = "0.11.0"
+indicatif = "0.17.11"
+thiserror = "2.0.12"
+walkdir = "2.5.0"
+palette = "0.7.6"
+strum = "0.27"
+strum_macros = "0.27"
+regex = "1.11.1"
