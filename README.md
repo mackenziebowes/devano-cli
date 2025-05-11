@@ -1,6 +1,7 @@
 # Devano/CLI
 
 ![Vibe Coded](https://img.shields.io/badge/vibe-coded-622118)
+![Hyper Ware](https://img.shields.io/badge/hyper-ware-71DEF4)
 
 A command line interface for rapid scaffolding. Vibe coded and pre-alpha.
 
