@@ -1,7 +1,7 @@
 use std::io;
-use crate::library;
-use crate::library::colors::named_palettes::NamedPalette;
-use crate::library::colors::writes::{write_devano_palette_css, write_devano_palette_rust};
+use crate::library::client;
+use crate::library::client::colors::named_palettes::NamedPalette;
+use crate::library::client::colors::writes::{write_devano_palette_css, write_devano_palette_rust};
 use cliclack::{select, intro, input, outro};
 use strum::IntoEnumIterator;
 use anyhow::Result;
@@ -152,20 +152,20 @@ pub fn get_hex_code() -> Result<String> {
 
 pub fn add_simple_palette(dest: Destination) -> Result<()> {
     let color = get_hex_code()?;
-    let palette = library::colors::transforms::make_simple_devano_palette(&color)
+    let palette = client::colors::transforms::make_simple_devano_palette(&color)
         .map_err(|e| {
             eprintln!("Failed to create palette: {}", e);
             io::Error::new(io::ErrorKind::Other, "Failed to create palette")
         })?;
     match dest {
         Destination::Rust => {
-            library::colors::writes::write_devano_palette_rust(&palette).map_err(|e| {
+            client::colors::writes::write_devano_palette_rust(&palette).map_err(|e| {
                 eprintln!("Failed to write palette: {}", e);
                 io::Error::new(io::ErrorKind::Other, "Failed to write palette")
             })?;
         }
         Destination::Css => {
-            library::colors::writes::write_devano_palette_css(&palette).map_err(|e| {
+            client::colors::writes::write_devano_palette_css(&palette).map_err(|e| {
                 eprintln!("Failed to write palette: {}", e);
                 io::Error::new(io::ErrorKind::Other, "Failed to write palette")
             })?;

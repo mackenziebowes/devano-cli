@@ -1,3 +1,4 @@
+// Structs
 pub struct UiComponent {
     pub name: &'static str,
     pub description: &'static str,
@@ -5,5 +6,6 @@ pub struct UiComponent {
     pub long_description: &'static str,
     pub filename: &'static str,
     pub contents: &'static str,
-    pub required_npm: &'static [&'static str],
+    pub folder_path: &'static str,
+    pub npm_deps: &'static [&'static str],
 }

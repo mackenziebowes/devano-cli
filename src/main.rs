@@ -22,6 +22,13 @@ fn main() {
                 std::process::exit(1);
             }
         }
+        cli::Commands::Add(args) => {
+            if let Err(e) = commands::add::add(&args.value) {
+                println!("You Asked for: {}", args.value);
+                eprintln!("Error: failed to process args: {e}");
+                std::process::exit(1);
+            }
+        }
     }
 }
 

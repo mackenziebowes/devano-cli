@@ -167,12 +167,21 @@ pub struct AccentShades {
 
 pub fn make_accents_simple(color: &Oklch) -> Accent {
     let hue_forward = color.shift_hue(90.0);
-    let hue_steps: [Oklch; 10] = take_n_mix(*color, hue_forward, 10)
+    let analogous_hue_steps: [Oklch; 10] = take_n_mix(*color, hue_forward, 10)
     .try_into()
     .expect("Expected exactly 10 values");
-    let hue2 = hue_steps[3];
-    let hue3 = hue_steps[6];
-    let all_hues: [Oklch; 3] = [*color, hue2, hue3];
+    let hue2 = analogous_hue_steps[3]; // 30 deg forward - too close?
+    let hue3 = analogous_hue_steps[6]; // 60 deg forward
+    let complimentary_hue = color.shift_hue(150.0);
+    let complimentary_hue_forward = complimentary_hue.shift_hue(90.0);
+    let complimentary_hue_steps: [Oklch; 10] = take_n_mix(complimentary_hue, complimentary_hue_forward, 10)
+    .try_into()
+    .expect("Expected exactly 10 values");
+    let hue4 = complimentary_hue_steps[3];
+    let hue5 = complimentary_hue_steps[6];
+    println!("Base Hues: {}, {}, {}, {}", to_hex(&hue2), to_hex(&hue3), to_hex(&hue4), to_hex(&hue5));
+
+    let all_hues: [Oklch; 3] = [*color, hue3, hue5];
 
     let create_shades = |base: Oklch| {
         let base_rgb: Srgb = base.into_color(); // can't cast Oklch to LinSrgb
