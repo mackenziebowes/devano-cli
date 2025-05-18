@@ -1,10 +1,10 @@
+use super::css;
+use crate::library::client::components::atoms;
+use anyhow::Result;
+use cliclack::{intro, outro, select, spinner};
 use std::fs;
 use std::io;
 use std::path::Path;
-use crate::library::client::components::atoms;
-use cliclack::{select, intro, spinner, outro};
-use anyhow::Result;
-use super::css;
 
 pub fn guided_ui() -> Result<()> {
     // todo:
@@ -16,7 +16,9 @@ pub fn guided_ui() -> Result<()> {
         ("Modules", "Modules", "Install Modules"),
         ("Cancel", "Cancel", "Exit the UI command"),
     ];
-    let choice = select("What would you like to do?").items(&choices).interact()?;
+    let choice = select("What would you like to do?")
+        .items(&choices)
+        .interact()?;
     match choice {
         "CSS" => {
             css_options()?;
@@ -40,7 +42,9 @@ pub fn css_options() -> Result<()> {
         ("Color", "Color", "Modify/Generate/Install color tokens"),
         ("Go Back", "Go Back", "Return to the top menu"),
     ];
-    let choice = select("What would you like to do?").items(&choices).interact()?;
+    let choice = select("What would you like to do?")
+        .items(&choices)
+        .interact()?;
     match choice {
         "Color" => {
             css::add_guided_palette()?;

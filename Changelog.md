@@ -36,3 +36,51 @@ Like the captain's log from Star Trek except I'm not English or Bald, nor in spa
 - Todo: Think about adding SSO
 - This thing builds, but a lot of code is unused
 - Going to continue writing the Auth feature client side for now, copying over any improvements. Specifically thinking about structured fetch requests, click handlers, etc.
+
+## 3:07 PM
+
+- Looked at TRPC, only really useful for monorepo's like solid start.
+- The plan for Devano is to use SolidStart/NextJS for things like Backend For Frontend - dynamic routes in certain modules pull full json pageloads, dynamic landing pages from a json spec, etc.
+- Decided Devano should support arbitrary backends (future feature to export features to Python/Rust/C backends, staying Typescript/Express + FileRouter for now)
+
+### May 17 2025
+
+#### 1:08 PM
+
+- Chased around some different API schemas yesterday, landed somewhere good, I think.
+- Wrote `sona` and `vona` axios instances and various utils for adding handshake and user tokens to requests via axios 'middleware' - just sanity stuff for denying malignant users, bots, scrapers, etc.
+- Expanded the AuthState component to hold signals for all forms, very nice devex there that I hope to extend and model on other modules as needed.
+- Wrote various front end components, expanded others. The TextInput and PasswordInput in particular were upgraded to accept Zod validation.
+- Current working directory of new components includes:
+  - Card
+  - Drawer (incomplete)
+  - ErrorMessage, which takes a "when" prop - used when the error message signal is not null
+  - Heading, which takes an as prop to return different tags with different, configurable default styles
+  - P, generic paragraph wrapper with default styling
+  - Page, generic main wrapper with default (immutable!) styling
+  - TopNav, which needs some extension to be more configurable
+  - FooterNav, which also needs config support
+  - PageInner, which composes the navs and the child elements
+  - Stack, which takes a `direction` prop for fast, prestyled column or row flexboxes
+
+#### 4:32 PM
+
+- added most of those components
+- The Navs are still not implemented, I have no good ideas and I'm not asking AI to architect for me.
+  - Need more idle time for thinking?
+
+### May 18 2025
+
+#### 9:33 AM
+
+- Finally added a keybind for Copilot Doc generation, documented all client functions for `cargo docs`
+- Hopefully they're good, I ain't reading all that
+  - should do the same for tests, I guess
+- Added an ApiComponent Struct for adding Client-side API routes.
+- Modified some write logic, extracted some reusable logic, etc etc the usual
+- Ready to dryfire the general `install auth` command
+
+#### 11:50 AM
+
+- Wrestled with cargo, added cliclack UI updates and multithreading to `new` and `feat` commands
+- Current task: finishing Auth module imports

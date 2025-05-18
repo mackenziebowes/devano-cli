@@ -32,6 +32,7 @@ Currently, the CLI does the following:
   - that flow allows you to supply a single hex code and does a ton of processing to give a 32-tone palette
   - the palette is spit out as css into your project giving you an instant light/dark theme for use with future devano/cli components
   - you can also choose a rust export to add your own named themes to the selection menu
+- `devano feat` gives you a submenu for adding feats. Call this from the top level (the one with client/server in it).
 
 ## Prerequisites
 

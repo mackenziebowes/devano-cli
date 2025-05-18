@@ -1,4 +1,4 @@
-use super::transforms::{DevanoPalette, NeutralHexes, AccentHexes};
+use super::transforms::{AccentHexes, DevanoPalette, NeutralHexes};
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
@@ -22,7 +22,9 @@ impl NamedPalette {
         match self {
             NamedPalette::Default => "Neutral neutrals. Icy cool & saturated accents.",
             NamedPalette::Lime => "Neutral neutrals. Kelly/Forest/Cyan accents",
-            NamedPalette::Montessori => "Sophisticated RYB Primary palette - muted tones & slightly saturated pastels.",
+            NamedPalette::Montessori => {
+                "Sophisticated RYB Primary palette - muted tones & slightly saturated pastels."
+            }
         }
     }
 

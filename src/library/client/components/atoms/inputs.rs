@@ -1,18 +1,31 @@
-use crate::library::client::utils::utils::{UiComponent};
+use crate::library::client::utils::utils::UiComponent;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Inputs {
-	Text,
-	Password
+    Text,
+    Password,
 }
 
+/// Provides a method to retrieve the corresponding UI component for an input type.
+///
+/// # Method
+/// - `get_ui`: Returns a reference to a static `UiComponent` associated with the input type.
+///
+/// # Returns
+/// A reference to a static `UiComponent` that represents the UI element for the input type.
+///
+/// # Example
+/// ```rust
+/// let input = Inputs::Text;
+/// let ui_component = input.get_ui();
+/// ```
 impl Inputs {
-	pub fn get_ui(&self) -> &'static UiComponent  {
-		match &self {
-			Inputs::Text => &TEXT_INPUT,
+    pub fn get_ui(&self) -> &'static UiComponent {
+        match &self {
+            Inputs::Text => &TEXT_INPUT,
             Inputs::Password => &PASSWORD_INPUT,
-		}
-	}
+        }
+    }
 }
 
 /// LITERALS
@@ -52,11 +65,10 @@ pub const TEXT_INPUT: UiComponent = UiComponent {
     filename: "TextInput.tsx",
     contents: TEXT_INPUT_LIT,
     description: "Devano <input type='text'> implementation.",
-	long_description: "",
-	folder_path: "atoms/inputs",
-	npm_deps: &[],
+    long_description: "",
+    folder_path: "atoms/inputs",
+    npm_deps: &[],
 };
-
 
 pub const PASSWORD_INPUT_LIT: &str = r#"
 import { JSX, Match, splitProps, Switch } from "solid-js";
@@ -111,11 +123,11 @@ export function PasswordInput(props: ExtendedTextInputProps) {
 /// EXPORTS
 
 pub const PASSWORD_INPUT: UiComponent = UiComponent {
-	name: "password-input",
-	filename: "PasswordInput.tsx",
-	contents: PASSWORD_INPUT_LIT,
-	description: "Stateful password implementation.",
-	long_description: "",
-	folder_path: "atoms/inputs",
-	npm_deps: &[],
+    name: "password-input",
+    filename: "PasswordInput.tsx",
+    contents: PASSWORD_INPUT_LIT,
+    description: "Stateful password implementation.",
+    long_description: "",
+    folder_path: "atoms/inputs",
+    npm_deps: &[],
 };

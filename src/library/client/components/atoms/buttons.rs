@@ -1,24 +1,38 @@
-use crate::library::client::utils::utils::{UiComponent};
+use crate::library::client::utils::utils::UiComponent;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Buttons {
-   Anchor,
-   AnchorButton,
-   Button,
-   ButtonAnchor,
-   IconButton,
+    Anchor,
+    AnchorButton,
+    Button,
+    ButtonAnchor,
+    IconButton,
 }
 
+/// Provides a method to retrieve the associated `UiComponent` for a given button type.
+///
+/// # Method
+/// - `get_ui`: Returns a reference to the static `UiComponent` corresponding to the button variant.
+///
+/// # Variants
+/// - `Buttons::Anchor`: Returns the `ANCHOR` component.
+/// - `Buttons::AnchorButton`: Returns the `ANCHOR_BUTTON` component.
+/// - `Buttons::Button`: Returns the `BUTTON` component.
+/// - `Buttons::ButtonAnchor`: Returns the `BUTTON_ANCHOR` component.
+/// - `Buttons::IconButton`: Returns the `ICON_BUTTON` component.
+///
+/// # Returns
+/// A reference to a static `UiComponent` that represents the UI element for the button variant.
 impl Buttons {
-    pub fn get_ui(&self) -> &'static UiComponent  {
-		match &self {
-			Buttons::Anchor => &ANCHOR,
-			Buttons::AnchorButton => &ANCHOR_BUTTON,
-			Buttons::Button => &BUTTON,
-			Buttons::ButtonAnchor => &BUTTON_ANCHOR,
-			Buttons::IconButton => &ICON_BUTTON,
-		}
-	}
+    pub fn get_ui(&self) -> &'static UiComponent {
+        match &self {
+            Buttons::Anchor => &ANCHOR,
+            Buttons::AnchorButton => &ANCHOR_BUTTON,
+            Buttons::Button => &BUTTON,
+            Buttons::ButtonAnchor => &BUTTON_ANCHOR,
+            Buttons::IconButton => &ICON_BUTTON,
+        }
+    }
 }
 
 pub const ANCHOR_LIT: &str = r#"
@@ -58,13 +72,13 @@ export function Anchor(props: AnchorProps) {
 "#;
 
 pub const ANCHOR: UiComponent = UiComponent {
-	name: "anchor",
-	filename: "Anchor.tsx",
-	contents: ANCHOR_LIT,
-	description: "Devano <a> implementation.",
-	long_description: "",
-	folder_path: "atoms/buttons",
-	npm_deps: &[],
+    name: "anchor",
+    filename: "Anchor.tsx",
+    contents: ANCHOR_LIT,
+    description: "Devano <a> implementation.",
+    long_description: "",
+    folder_path: "atoms/buttons",
+    npm_deps: &[],
 };
 
 pub const ANCHOR_BUTTON_LIT: &str = r#"
@@ -104,13 +118,13 @@ export function AnchorButton(props: AnchorProps) {
 "#;
 
 pub const ANCHOR_BUTTON: UiComponent = UiComponent {
-	name: "anchor",
-	filename: "Anchor.tsx",
-	contents: ANCHOR_BUTTON_LIT,
-	description: "Devano <a> implementation.",
-	long_description: "",
-	folder_path: "atoms/buttons",
-	npm_deps: &[],
+    name: "anchor",
+    filename: "AnchorButton.tsx",
+    contents: ANCHOR_BUTTON_LIT,
+    description: "Devano <a> implementation.",
+    long_description: "",
+    folder_path: "atoms/buttons",
+    npm_deps: &[],
 };
 
 pub const BUTTON_ANCHOR_LIT: &str = r#"
@@ -168,13 +182,13 @@ export function Button(props: ButtonProps) {
 "#;
 
 pub const BUTTON_ANCHOR: UiComponent = UiComponent {
-	name: "anchor-button",
+    name: "anchor-button",
     filename: "LinkButton.tsx",
     contents: BUTTON_ANCHOR_LIT,
     description: "Devano <a> implementation styled like a button.",
-	long_description: "",
-	folder_path: "atoms/buttons",
-	npm_deps: &[]
+    long_description: "",
+    folder_path: "atoms/buttons",
+    npm_deps: &[],
 };
 
 pub const BUTTON_LIT: &str = r#"
@@ -236,9 +250,9 @@ pub const BUTTON: UiComponent = UiComponent {
     filename: "Button.tsx",
     contents: BUTTON_LIT,
     description: "Devano <button> implementation.",
-	long_description: "",
-	folder_path: "atoms/buttons",
-	npm_deps: &[]
+    long_description: "",
+    folder_path: "atoms/buttons",
+    npm_deps: &[],
 };
 
 pub const ICON_BUTTON_LIT: &str = r#"
@@ -295,11 +309,11 @@ export default function IconButton(props: IconButtonProps) {
 "#;
 
 pub const ICON_BUTTON: UiComponent = UiComponent {
-	name: "button",
-    filename: "LinkButton.tsx",
+    name: "button",
+    filename: "IconButton.tsx",
     contents: ICON_BUTTON_LIT,
     description: "Devano 'icon-button' implementation.",
-	long_description: "Put an svg inside to give it standard Devano options and make it clicky.",
-	folder_path: "atoms/buttons",
-	npm_deps: &[]
+    long_description: "Put an svg inside to give it standard Devano options and make it clicky.",
+    folder_path: "atoms/buttons",
+    npm_deps: &[],
 };

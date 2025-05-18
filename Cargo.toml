@@ -1,6 +1,6 @@
 [package]
 name = "devano"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2024"
 description = "A CLI tool for Devano"
 authors = ["Mackenzie Bowes <mackenzie@mackenziebowes.com>"]

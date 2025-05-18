@@ -1,4 +1,4 @@
-use palette::{FromColor, IntoColor, LinSrgb, Srgb, Mix, ShiftHue, blend::Blend, Oklch};
+use palette::{FromColor, IntoColor, LinSrgb, Mix, Oklch, ShiftHue, Srgb, blend::Blend};
 use std::fmt;
 
 #[derive(Debug)]
@@ -50,7 +50,9 @@ pub fn make_simple_devano_palette(hex_color: &str) -> Result<DevanoPalette, Pale
     let dark_mix: [Oklch; 32] = take_n_mix(darkest_oklch, brightest_oklch, 32)
         .try_into()
         .expect("Expected exactly 10 values");
-    let light_mix: [Oklch; 32] = take_n_mix(desaturated_oklch, brightest_oklch, 32).try_into().expect("Expected exactly 10 values");
+    let light_mix: [Oklch; 32] = take_n_mix(desaturated_oklch, brightest_oklch, 32)
+        .try_into()
+        .expect("Expected exactly 10 values");
     // make a blend
     let dark_tones: [Oklch; 4] = [dark_mix[3], dark_mix[6], dark_mix[9], dark_mix[12]];
     let light_tones: [Oklch; 4] = [light_mix[23], light_mix[25], light_mix[27], light_mix[30]];
@@ -109,7 +111,7 @@ pub fn take_n_mix(color_a: Oklch, color_b: Oklch, n: usize) -> Vec<Oklch> {
     for i in 0..n {
         let t = i as f32 / (n - 1) as f32; // Normalize to range [0, 1]
         steps.push(color_a.mix(color_b, t));
-    };
+    }
     steps
 }
 
@@ -119,7 +121,10 @@ pub fn parse_hex(hex_code: &str) -> Srgb<f32> {
     let expanded_hex = match hex.len() {
         1 => hex.repeat(6),
         2 => hex.repeat(3),
-        3 => hex.chars().flat_map(|c| std::iter::repeat(c).take(2)).collect::<String>(),
+        3 => hex
+            .chars()
+            .flat_map(|c| std::iter::repeat(c).take(2))
+            .collect::<String>(),
         6 => hex.to_string(),
         _ => panic!("Invalid hex code format!"),
     };
@@ -137,7 +142,6 @@ pub fn parse_hex(hex_code: &str) -> Srgb<f32> {
     // Step 8: Construct an Srgb from the red, green, and blue components
     Srgb::new(red, green, blue)
 }
-
 
 pub fn to_hex(color: &Oklch) -> String {
     // 1. Convert to Srgb
@@ -168,18 +172,25 @@ pub struct AccentShades {
 pub fn make_accents_simple(color: &Oklch) -> Accent {
     let hue_forward = color.shift_hue(90.0);
     let analogous_hue_steps: [Oklch; 10] = take_n_mix(*color, hue_forward, 10)
-    .try_into()
-    .expect("Expected exactly 10 values");
+        .try_into()
+        .expect("Expected exactly 10 values");
     let hue2 = analogous_hue_steps[3]; // 30 deg forward - too close?
     let hue3 = analogous_hue_steps[6]; // 60 deg forward
     let complimentary_hue = color.shift_hue(150.0);
     let complimentary_hue_forward = complimentary_hue.shift_hue(90.0);
-    let complimentary_hue_steps: [Oklch; 10] = take_n_mix(complimentary_hue, complimentary_hue_forward, 10)
-    .try_into()
-    .expect("Expected exactly 10 values");
+    let complimentary_hue_steps: [Oklch; 10] =
+        take_n_mix(complimentary_hue, complimentary_hue_forward, 10)
+            .try_into()
+            .expect("Expected exactly 10 values");
     let hue4 = complimentary_hue_steps[3];
     let hue5 = complimentary_hue_steps[6];
-    println!("Base Hues: {}, {}, {}, {}", to_hex(&hue2), to_hex(&hue3), to_hex(&hue4), to_hex(&hue5));
+    println!(
+        "Base Hues: {}, {}, {}, {}",
+        to_hex(&hue2),
+        to_hex(&hue3),
+        to_hex(&hue4),
+        to_hex(&hue5)
+    );
 
     let all_hues: [Oklch; 3] = [*color, hue3, hue5];
 

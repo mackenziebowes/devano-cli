@@ -1,35 +1,45 @@
-use std::io;
 use crate::library::client;
 use crate::library::client::colors::named_palettes::NamedPalette;
 use crate::library::client::colors::writes::{write_devano_palette_css, write_devano_palette_rust};
-use cliclack::{select, intro, input, outro};
-use strum::IntoEnumIterator;
 use anyhow::Result;
+use cliclack::{input, intro, outro, select};
+use std::io;
+use strum::IntoEnumIterator;
 
 pub fn add_guided_palette() -> Result<()> {
     intro("Devano Palette Tools".to_string())?;
 
     let choices = [
-        ("Make a new palette", "Make a new palette", "Open the guided palette maker"), ("Add a named palette", "Add a named palette", "Open the guided palette selector"), 
-        ("Cancel", "Cancel", "Exit the program")
-        ];
-    let choice = select("What would you like to do?").items(&choices).interact()?;
+        (
+            "Make a new palette",
+            "Make a new palette",
+            "Open the guided palette maker",
+        ),
+        (
+            "Add a named palette",
+            "Add a named palette",
+            "Open the guided palette selector",
+        ),
+        ("Cancel", "Cancel", "Exit the program"),
+    ];
+    let choice = select("What would you like to do?")
+        .items(&choices)
+        .interact()?;
 
     match choice {
         "Make a new palette" => {
             split_complexity()?;
-        },
+        }
         "Add a named palette" => {
             add_named_palette()?;
-        },
+        }
         "Cancel" => {
             outro("Operation canceled.")?;
-        },
+        }
         _ => unreachable!(),
     };
     Ok(())
 }
-
 
 pub fn add_named_palette() -> Result<()> {
     // Step 1: List available named palettes
@@ -63,8 +73,7 @@ pub fn add_named_palette() -> Result<()> {
             "Export to CSS" => {
                 write_devano_palette_css(&palette)?;
             }
-            "Cancel" => {
-            }
+            "Cancel" => {}
             _ => unreachable!(),
         };
     } else {
@@ -73,27 +82,42 @@ pub fn add_named_palette() -> Result<()> {
     Ok(())
 }
 
-
 pub fn split_complexity() -> Result<()> {
     let complexity_levels = [
-        ("Simple", "Simple", "Make a full 32-token palette from just one color"), 
-        ("Standard", "Standard", "Not yet implemented - will allow making a 32-token palette from three colors"), 
-        ("Sophisticated", "Sophisticated", "Not yet implemented - hand type all 32 color tokens"), ("Go Back", "Go Back", "Go up one level")];
-    let complexity = select("Choose the complexity level:").items(&complexity_levels).interact()?;
+        (
+            "Simple",
+            "Simple",
+            "Make a full 32-token palette from just one color",
+        ),
+        (
+            "Standard",
+            "Standard",
+            "Not yet implemented - will allow making a 32-token palette from three colors",
+        ),
+        (
+            "Sophisticated",
+            "Sophisticated",
+            "Not yet implemented - hand type all 32 color tokens",
+        ),
+        ("Go Back", "Go Back", "Go up one level"),
+    ];
+    let complexity = select("Choose the complexity level:")
+        .items(&complexity_levels)
+        .interact()?;
 
     match complexity {
         "Simple" => {
             split_simple_export()?;
-        },
+        }
         "Standard" => {
             outro("Standard complexity is not yet implemented.")?;
-        },
+        }
         "Sophisticated" => {
             outro("Sophisticated complexity is not yet implemented.")?;
-        },
+        }
         "Go Back" => {
             add_guided_palette()?;
-        },
+        }
         _ => unreachable!(),
     };
     Ok(())
@@ -107,17 +131,27 @@ pub enum Destination {
 
 fn get_export_options() -> [(&'static str, &'static str, &'static str); 3] {
     [
-        ("Export to Rust", "Export to Rust", "Exports the 32-token theme to ./src/codegen/palettes/newest.rs"),
-        ("Export to CSS", "Export to CSS", "Exports the 32-token theme to ./src/css/devano/devano.css"),
+        (
+            "Export to Rust",
+            "Export to Rust",
+            "Exports the 32-token theme to ./src/codegen/palettes/newest.rs",
+        ),
+        (
+            "Export to CSS",
+            "Export to CSS",
+            "Exports the 32-token theme to ./src/css/devano/devano.css",
+        ),
         ("Go Back", "Go Back", "Go up one level"),
     ]
 }
 
 pub fn split_simple_export() -> Result<()> {
     let export_options = get_export_options();
-    let export_choice = select("How would you like to export the palette?").items(&export_options).interact()?;
+    let export_choice = select("How would you like to export the palette?")
+        .items(&export_options)
+        .interact()?;
     match export_choice {
-        "Export to Rust" => { 
+        "Export to Rust" => {
             add_simple_palette(Destination::Rust)?;
         }
         "Export to CSS" => {
@@ -125,7 +159,7 @@ pub fn split_simple_export() -> Result<()> {
         }
         "Go Back" => {
             split_complexity()?;
-        },
+        }
         _ => unreachable!(),
     };
 
@@ -133,8 +167,8 @@ pub fn split_simple_export() -> Result<()> {
 }
 
 pub fn get_hex_code() -> Result<String> {
-    let hex_regex = regex::Regex::new(r"^#(?:[0-9a-fA-F]{3}){1,2}$")
-    .expect("Failed to compile regex");
+    let hex_regex =
+        regex::Regex::new(r"^#(?:[0-9a-fA-F]{3}){1,2}$").expect("Failed to compile regex");
     let code = input("Give us a hex-code:")
         .placeholder("#FDC0C0")
         .validate(move |input: &String| {
@@ -152,11 +186,10 @@ pub fn get_hex_code() -> Result<String> {
 
 pub fn add_simple_palette(dest: Destination) -> Result<()> {
     let color = get_hex_code()?;
-    let palette = client::colors::transforms::make_simple_devano_palette(&color)
-        .map_err(|e| {
-            eprintln!("Failed to create palette: {}", e);
-            io::Error::new(io::ErrorKind::Other, "Failed to create palette")
-        })?;
+    let palette = client::colors::transforms::make_simple_devano_palette(&color).map_err(|e| {
+        eprintln!("Failed to create palette: {}", e);
+        io::Error::new(io::ErrorKind::Other, "Failed to create palette")
+    })?;
     match dest {
         Destination::Rust => {
             client::colors::writes::write_devano_palette_rust(&palette).map_err(|e| {
@@ -169,7 +202,7 @@ pub fn add_simple_palette(dest: Destination) -> Result<()> {
                 eprintln!("Failed to write palette: {}", e);
                 io::Error::new(io::ErrorKind::Other, "Failed to write palette")
             })?;
-        },
+        }
     };
     Ok(())
 }

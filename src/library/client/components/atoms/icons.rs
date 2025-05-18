@@ -1,19 +1,29 @@
-use crate::library::client::utils::utils::{UiComponent};
+use crate::library::client::utils::utils::UiComponent;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Icons {
-   EyeClosed,
-   EyeOpen,
+    EyeClosed,
+    EyeOpen,
 }
 
-
+/// Returns a reference to the corresponding `UiComponent` for the icon.
+///
+/// # Returns
+/// A static reference to the `UiComponent` associated with the icon variant.
+///
+/// # Examples
+/// ```rust
+/// let icon = Icons::EyeClosed;
+/// let ui_component = icon.get_ui();
+/// // `ui_component` now holds a reference to the `EYE_CLOSED` UiComponent.
+/// ```
 impl Icons {
-    pub fn get_ui(&self) -> &'static UiComponent  {
-		match &self {
-			Icons::EyeClosed => &EYE_CLOSED,
+    pub fn get_ui(&self) -> &'static UiComponent {
+        match &self {
+            Icons::EyeClosed => &EYE_CLOSED,
             Icons::EyeOpen => &EYE_OPEN,
-		}
-	}
+        }
+    }
 }
 
 /// LITERALS
@@ -68,9 +78,9 @@ pub const EYE_CLOSED: UiComponent = UiComponent {
     filename: "EyeClosed.tsx",
     contents: EYE_CLOSED_LIT,
     description: "Eye closed icon, included for visibility controls",
-	long_description: "",
-	folder_path: "atoms/icons",
-	npm_deps: &[],
+    long_description: "",
+    folder_path: "atoms/icons",
+    npm_deps: &[],
 };
 
 pub const EYE_OPEN: UiComponent = UiComponent {
@@ -78,7 +88,7 @@ pub const EYE_OPEN: UiComponent = UiComponent {
     filename: "EyeOpen.tsx",
     contents: EYE_OPEN_LIT,
     description: "Eye open icon, included for visibility controls",
-	long_description: "",
-	folder_path: "atoms/icons",
-	npm_deps: &[],
+    long_description: "",
+    folder_path: "atoms/icons",
+    npm_deps: &[],
 };

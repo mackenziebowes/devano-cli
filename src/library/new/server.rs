@@ -1,5 +1,5 @@
 pub struct NewDevanoServerFileInstruction {
-	#[allow(dead_code)]
+    #[allow(dead_code)]
     pub name: &'static str,
     pub filename: &'static str,
     pub folder_tree: &'static [&'static str],
@@ -7,10 +7,10 @@ pub struct NewDevanoServerFileInstruction {
 }
 
 pub struct NewDevanoServerBashInstruction {
-	#[allow(dead_code)]
+    #[allow(dead_code)]
     pub name: &'static str,
     pub command: &'static str,
-    pub args: &'static [&'static str]
+    pub args: &'static [&'static str],
 }
 
 const TSCONFIG_JSON_LITERAL: &str = r#"
@@ -232,7 +232,6 @@ export function sendMessageToUser({
 }
 "#;
 
-
 const AUTHENTICATE_REQUEST_LITERAL: &str = r#"
 import { NextFunction, Request, Response } from "express";
 import { verifyToken } from "@/lib/token";
@@ -332,104 +331,107 @@ export function init() {
 }
 "#;
 
-pub fn make_files() -> (Vec<NewDevanoServerFileInstruction>, Vec<NewDevanoServerBashInstruction>) {
+pub fn make_files() -> (
+    Vec<NewDevanoServerFileInstruction>,
+    Vec<NewDevanoServerBashInstruction>,
+) {
     let files = vec![
-			NewDevanoServerFileInstruction {
-			name: "tsconfig",
-			filename: "tsconfig.json",
-			folder_tree: &["."],
-			contents: TSCONFIG_JSON_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "package_json",
-			filename: "package.json",
-			folder_tree: &["."],
-			contents: PACKAGE_JSON_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "git_ignore",
-			filename: ".gitignore",
-			folder_tree: &["."],
-			contents: GITIGNORE_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "env_example",
-			filename: ".env.example",
-			folder_tree: &["."],
-			contents: ENV_EXAMPLE_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "types",
-			filename: "types.d.ts",
-			folder_tree: &[".","src"],
-			contents: ENV_EXAMPLE_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "types",
-			filename: "types.d.ts",
-			folder_tree: &[".","src"],
-			contents: ENV_EXAMPLE_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "types",
-			filename: "types.d.ts",
-			folder_tree: &[".","src"],
-			contents: TYPES_D_TS_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "index",
-			filename: "index.ts",
-			folder_tree: &[".","src"],
-			contents: INDEX_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "lib/token",
-			filename: "token.ts",
-			folder_tree: &[".","src","lib"],
-			contents: TOKEN_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "lib/ws",
-			filename: "ws.ts",
-			folder_tree: &[".","src","lib"],
-			contents: WS_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "middleware/authenticateRequest",
-			filename: "authenticateRequest.ts",
-			folder_tree: &[".","src","middleware"],
-			contents: AUTHENTICATE_REQUEST_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "middleware/validateSchema",
-			filename: "validateSchema.ts",
-			folder_tree: &[".","src","middleware"],
-			contents: VALIDATE_SCHEMA_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "routes/example",
-			filename: "example.ts",
-			folder_tree: &[".","src","routes"],
-			contents: EXAMPLE_ROUTE_LITERAL,
-		},
-			NewDevanoServerFileInstruction {
-			name: "utils/env",
-			filename: "env.ts",
-			folder_tree: &[".","src","utils"],
-			contents: ENV_LITERAL,
-		},
+        NewDevanoServerFileInstruction {
+            name: "tsconfig",
+            filename: "tsconfig.json",
+            folder_tree: &["."],
+            contents: TSCONFIG_JSON_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "package_json",
+            filename: "package.json",
+            folder_tree: &["."],
+            contents: PACKAGE_JSON_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "git_ignore",
+            filename: ".gitignore",
+            folder_tree: &["."],
+            contents: GITIGNORE_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "env_example",
+            filename: ".env.example",
+            folder_tree: &["."],
+            contents: ENV_EXAMPLE_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "types",
+            filename: "types.d.ts",
+            folder_tree: &[".", "src"],
+            contents: ENV_EXAMPLE_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "types",
+            filename: "types.d.ts",
+            folder_tree: &[".", "src"],
+            contents: ENV_EXAMPLE_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "types",
+            filename: "types.d.ts",
+            folder_tree: &[".", "src"],
+            contents: TYPES_D_TS_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "index",
+            filename: "index.ts",
+            folder_tree: &[".", "src"],
+            contents: INDEX_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "lib/token",
+            filename: "token.ts",
+            folder_tree: &[".", "src", "lib"],
+            contents: TOKEN_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "lib/ws",
+            filename: "ws.ts",
+            folder_tree: &[".", "src", "lib"],
+            contents: WS_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "middleware/authenticateRequest",
+            filename: "authenticateRequest.ts",
+            folder_tree: &[".", "src", "middleware"],
+            contents: AUTHENTICATE_REQUEST_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "middleware/validateSchema",
+            filename: "validateSchema.ts",
+            folder_tree: &[".", "src", "middleware"],
+            contents: VALIDATE_SCHEMA_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "routes/example",
+            filename: "example.ts",
+            folder_tree: &[".", "src", "routes"],
+            contents: EXAMPLE_ROUTE_LITERAL,
+        },
+        NewDevanoServerFileInstruction {
+            name: "utils/env",
+            filename: "env.ts",
+            folder_tree: &[".", "src", "utils"],
+            contents: ENV_LITERAL,
+        },
     ];
     let commands = vec![
-		NewDevanoServerBashInstruction {
-			name: "git/init",
-			command: "git",
-			args: &["init"]
-    	},
-		NewDevanoServerBashInstruction {
-			name: "pnpm/i",
-			command: "pnpm",
-			args: &["install"]
-		},
-	];
+        NewDevanoServerBashInstruction {
+            name: "git/init",
+            command: "git",
+            args: &["init"],
+        },
+        NewDevanoServerBashInstruction {
+            name: "pnpm/i",
+            command: "pnpm",
+            args: &["install"],
+        },
+    ];
     (files, commands)
 }

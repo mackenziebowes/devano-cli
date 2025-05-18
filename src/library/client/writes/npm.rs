@@ -1,6 +1,6 @@
-use std::process::Command;
 use std::fs;
 use std::path::Path;
+use std::process::Command;
 
 pub fn install_npm_deps(deps: &[&str]) -> std::io::Result<()> {
     if deps.is_empty() {

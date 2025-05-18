@@ -1,22 +1,28 @@
-use crate::library::client::utils::utils::{UiComponent};
+use crate::library::client::utils::utils::UiComponent;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Decorators {
-   Separators,
+    Separators,
 }
 
+/// Retrieves the associated UI component for the `Decorators` instance.
+///
+/// # Returns
+/// A reference to a static `UiComponent` that corresponds to the specific
+/// variant of the `Decorators` enum. Currently, this method supports the
+/// `Decorators::Separators` variant, returning a reference to the `SEPARATORS`
+/// UI component.
 impl Decorators {
-    pub fn get_ui(&self) -> &'static UiComponent  {
-		match &self {
-			Decorators::Separators => &SEPARATORS,
-		}
-	}
+    pub fn get_ui(&self) -> &'static UiComponent {
+        match &self {
+            Decorators::Separators => &SEPARATORS,
+        }
+    }
 }
 
 pub const SEPARATORS_LIT: &str = r#"
 import { JSX, splitProps } from "solid-js";
 import { cn } from "~/devano/utils/cn";
-
 interface SeparatorProps extends JSX.HTMLAttributes<HTMLDivElement> {
 	label?: string;
 	direction?: "horizontal" | "vertical";
@@ -112,11 +118,11 @@ export function SingleSimpleSeparator(props: SingleSimpleSeparatorProps) {
 "#;
 
 pub const SEPARATORS: UiComponent = UiComponent {
-	name: "separators",
-	filename: "Separators.tsx",
-	contents: SEPARATORS_LIT,
-	description: "Separator decoration components",
-	long_description: "",
-	folder_path: "atoms/decorators",
-	npm_deps: &[],
+    name: "separators",
+    filename: "Separator.tsx",
+    contents: SEPARATORS_LIT,
+    description: "Separator decoration components",
+    long_description: "",
+    folder_path: "atoms/decorators",
+    npm_deps: &[],
 };
