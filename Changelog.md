@@ -18,6 +18,17 @@ Like the captain's log from Star Trek except I'm not English or Bald, nor in spa
 - Wrestled with cargo, added cliclack UI updates and multithreading to `new` and `feat` commands
 - Current task: finishing Auth module imports
 
+#### 1:52 PM
+
+- Tried the copilot agent for separating the big /auth/ui and /auth/api files into partials
+  - total fail, mf literally wrote "...rest of the code..." inside a copy pasted string literal
+  - ![fool ish](https://img.shields.io/badge/fool-ish-DE7181) beyond words
+  - did it manually
+- golly there's a lot of unused stuff floating around
+- I really want another CLI for syncing a special kind of workshop project to the component library
+  - copying over is ![fool ish](https://img.shields.io/badge/fool-ish-DE7181) and takes forever
+  - might also take forever to delay to write a syncer
+
 ### May 17 2025
 
 #### 1:08 PM
