@@ -2,6 +2,27 @@
 
 Like the captain's log from Star Trek except I'm not English or Bald, nor in space, nor a captain.
 
+### May 24 2025
+
+#### 1:27 PM
+
+- Added an "all_variants" method to Atoms enum
+- Added "install all atoms" option to `devano ui`
+
+### May 19 2025
+
+#### 7:45 AM
+
+- Dryfire went okay, as mentioned current task is finishing copying the Auth Module stuff
+  - Might want to add a modal util while I'm here
+  - And a popover
+  - I have a drawer written, too, but I'm not sure what to do with it yet
+- Also need to go through and style all my atoms for the proper breakpoints
+  - Performing the rookie mistake (?) of designing for my development device, the laptop.
+  - Most web traffic is mobile
+  - Most people are illiterate
+  - I wonder if those things are related...
+
 ### May 18 2025
 
 #### 9:33 AM

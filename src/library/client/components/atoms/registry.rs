@@ -63,6 +63,27 @@ pub enum Atoms {
 ///   This method propagates errors that may occur during dependency installation,
 ///   npm dependency checks, or file writing operations.
 impl Atoms {
+    pub fn all_variants() -> &'static [Atoms] {
+        &[
+            Atoms::Buttons(Buttons::Anchor),
+            Atoms::Buttons(Buttons::AnchorButton),
+            Atoms::Buttons(Buttons::Button),
+            Atoms::Buttons(Buttons::ButtonAnchor),
+            Atoms::Buttons(Buttons::IconButton),
+            Atoms::Decorators(Decorators::Separators),
+            Atoms::Feedback(Feedbacks::ErrorMsg),
+            Atoms::Icons(Icons::EyeClosed),
+            Atoms::Icons(Icons::EyeOpen),
+            Atoms::Inputs(Inputs::Text),
+            Atoms::Inputs(Inputs::Password),
+            Atoms::Layout(Layouts::Card),
+            Atoms::Layout(Layouts::Page),
+            Atoms::Layout(Layouts::PageInner),
+            Atoms::Layout(Layouts::Stack),
+            Atoms::Utils(Utils::Cn),
+        ]
+    }
+
     pub fn devano_dependencies(&self) -> &'static [Atoms] {
         match self {
             Atoms::Buttons(button) => match button {
@@ -129,6 +150,13 @@ impl Atoms {
 
         utils::utils::write_file(&file_path, ui_component.contents)?;
 
+        Ok(())
+    }
+
+    pub fn install_all() -> Result<()> {
+        for atom in Atoms::all_variants() {
+            atom.install()?;
+        }
         Ok(())
     }
 }

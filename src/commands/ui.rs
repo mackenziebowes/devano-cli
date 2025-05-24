@@ -1,10 +1,11 @@
 use super::css;
 use crate::library::client::components::atoms;
 use anyhow::Result;
-use cliclack::{intro, outro, select, spinner};
+use cliclack::{intro, outro, progress_bar, select, spinner, multi_progress};
 use std::fs;
 use std::io;
 use std::path::Path;
+use std::thread;
 
 pub fn guided_ui() -> Result<()> {
     // todo:
@@ -13,6 +14,7 @@ pub fn guided_ui() -> Result<()> {
     intro("Devano UI".to_string())?;
     let choices = [
         ("CSS", "CSS", "Modify/Generate/Install CSS Tokens"),
+        ("Atoms", "Atoms", "Install all available atoms"),
         ("Modules", "Modules", "Install Modules"),
         ("Cancel", "Cancel", "Exit the UI command"),
     ];
@@ -22,6 +24,9 @@ pub fn guided_ui() -> Result<()> {
     match choice {
         "CSS" => {
             css_options()?;
+        }
+        "Atoms" => {
+            install_atoms()?;
         }
         "Modules" => {
             outro("Not Yet Implemented - Exiting!")?;
@@ -54,5 +59,25 @@ pub fn css_options() -> Result<()> {
         }
         _ => unreachable!(),
     }
+    Ok(())
+}
+
+pub fn install_atoms() -> Result<()> {
+    intro("Installing all Atoms...".to_string())?;
+    let all_atoms = atoms::registry::Atoms::all_variants();
+    let multi = multi_progress("Cloning...");
+    let pb1 = multi.add(progress_bar(all_atoms.len() as u64));
+    pb1.start("JSX...");
+    let client_thread = thread::spawn(move || -> Result<()> {
+        for atom in all_atoms {
+            atom.install()?;
+            pb1.inc(1);
+        }
+        pb1.stop("Cloning Complete");
+        pb1.clear();
+        Ok(())
+    });
+    client_thread.join().unwrap()?;
+    outro("Atoms complete!")?;
     Ok(())
 }
