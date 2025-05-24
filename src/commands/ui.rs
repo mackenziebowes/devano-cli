@@ -1,7 +1,7 @@
 use super::css;
 use crate::library::client::components::atoms;
 use anyhow::Result;
-use cliclack::{intro, outro, progress_bar, select, spinner, multi_progress};
+use cliclack::{intro, multi_progress, outro, progress_bar, select, spinner};
 use std::fs;
 use std::io;
 use std::path::Path;

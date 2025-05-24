@@ -9,6 +9,12 @@ Like the captain's log from Star Trek except I'm not English or Bald, nor in spa
 - Added an "all_variants" method to Atoms enum
 - Added "install all atoms" option to `devano ui`
 
+#### 4:15 PM
+
+- Added Modal to Layout Atoms
+- Updated Text/Password Inputs
+- Added OTP (One Time Password) Input
+
 ### May 19 2025
 
 #### 7:45 AM

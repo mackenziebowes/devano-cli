@@ -76,10 +76,13 @@ impl Atoms {
             Atoms::Icons(Icons::EyeOpen),
             Atoms::Inputs(Inputs::Text),
             Atoms::Inputs(Inputs::Password),
+            Atoms::Inputs(Inputs::Otp),
             Atoms::Layout(Layouts::Card),
             Atoms::Layout(Layouts::Page),
             Atoms::Layout(Layouts::PageInner),
             Atoms::Layout(Layouts::Stack),
+            Atoms::Layout(Layouts::Heading),
+            Atoms::Layout(Layouts::Modal),
             Atoms::Utils(Utils::Cn),
         ]
     }
@@ -111,12 +114,15 @@ impl Atoms {
                     Atoms::Icons(Icons::EyeOpen),
                     Atoms::Buttons(Buttons::IconButton),
                 ],
+                Inputs::Otp => &[Atoms::Utils(Utils::Cn)],
             },
             Atoms::Layout(layout) => match layout {
                 Layouts::Card => &[Atoms::Utils(Utils::Cn)],
                 Layouts::Page => &[],
                 Layouts::PageInner => &[Atoms::Utils(Utils::Cn)],
                 Layouts::Stack => &[Atoms::Utils(Utils::Cn)],
+                Layouts::Heading => &[Atoms::Utils(Utils::Cn)],
+                Layouts::Modal => &[],
             },
             Atoms::Utils(util) => match util {
                 Utils::Cn => &[],

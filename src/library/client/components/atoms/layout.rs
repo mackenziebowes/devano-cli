@@ -6,6 +6,8 @@ pub enum Layouts {
     Page,
     PageInner,
     Stack,
+    Heading,
+	Modal,
 }
 
 /// Returns a reference to the corresponding `UiComponent` for the given layout variant.
@@ -25,6 +27,8 @@ impl Layouts {
             Layouts::Page => &PAGE,
             Layouts::PageInner => &PAGE_INNER,
             Layouts::Stack => &STACK,
+            Layouts::Heading => &HEADING,
+			Layouts::Modal => &MODAL,
         }
     }
 }
@@ -173,6 +177,137 @@ pub const STACK: UiComponent = UiComponent {
     contents: STACK_LIT,
     description: "Devano flex-row/flex-column implementation",
     long_description: "Use the Direction prop for fast row/columns. Row by default.",
+    folder_path: "atoms/layout",
+    npm_deps: &[],
+};
+
+pub const HEADING_LIT: &str = r#"
+import { JSX, splitProps, Switch, Match } from "solid-js";
+import { cn } from "~/devano/utils/cn";
+
+interface HeadingProps extends JSX.HTMLAttributes<HTMLHeadingElement> {
+	as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+}
+
+export function Heading(props: HeadingProps) {
+	const [local, rest] = splitProps(props, ["as", "children", "class"]);
+
+	let headingCn = cn([
+		{
+			h1: "text-4xl font-bold",
+			h2: "text-3xl font-semibold",
+			h3: "text-2xl font-medium",
+			h4: "text-xl font-medium",
+			h5: "text-lg font-normal",
+			h6: "text-base font-normal",
+		}[local.as],
+		local.class,
+	]);
+
+	return (
+		<Switch>
+			<Match when={local.as === "h1"}>
+				<h1
+					class={headingCn}
+					{...rest}
+				>
+					{local.children}
+				</h1>
+			</Match>
+			<Match when={local.as === "h2"}>
+				<h2
+					class={headingCn}
+					{...rest}
+				>
+					{local.children}
+				</h2>
+			</Match>
+			<Match when={local.as === "h3"}>
+				<h3
+					class={headingCn}
+					{...rest}
+				>
+					{local.children}
+				</h3>
+			</Match>
+			<Match when={local.as === "h4"}>
+				<h4
+					class={headingCn}
+					{...rest}
+				>
+					{local.children}
+				</h4>
+			</Match>
+			<Match when={local.as === "h5"}>
+				<h5
+					class={headingCn}
+					{...rest}
+				>
+					{local.children}
+				</h5>
+			</Match>
+			<Match when={local.as === "h6"}>
+				<h6
+					class={headingCn}
+					{...rest}
+				>
+					{local.children}
+				</h6>
+			</Match>
+		</Switch>
+	);
+}
+"#;
+
+pub const HEADING: UiComponent = UiComponent {
+    name: "heading",
+    filename: "Heading.tsx",
+    contents: HEADING_LIT,
+    description: "Devano Heading Implementation",
+    long_description: "Use the Direction prop for fast row/columns. Row by default.",
+    folder_path: "atoms/layout",
+    npm_deps: &[],
+};
+
+pub const MODAL_LIT: &str = r#"
+import { Portal, Show, Switch, Match } from "solid-js/web";
+import { JSX, splitProps } from "solid-js";
+import { Card } from "./Card";
+
+interface ModalProps extends JSX.HTMLAttributes<HTMLDivElement> {
+	when: boolean;
+	close: Function;
+}
+export default function Modal(props: ModalProps) {
+	const [l, rest] = splitProps(props, ["when", "children", "close"]);
+
+	return (
+		<Switch fallback={<></>}>
+			<Match when={l.when}>
+				<Portal>
+					<div
+						onClick={() => l.close()}
+						class="w-[100vw] h-[100vh] left-0 top-0 absolute bg-(--bg-a) opacity-25"
+					/>
+					<Card
+						class="absolute left-[50%] top-[50%] bg-(--bg-e) text-(--fg-e)"
+						style={{ transform: "translateX(-50%) translateY(-50%)" }}
+					>
+						{l?.children}
+					</Card>
+				</Portal>
+			</Match>
+		</Switch>
+	);
+}
+"#;
+
+pub const MODAL: UiComponent = UiComponent {
+    name: "modal",
+    filename: "Modal.tsx",
+    contents: MODAL_LIT,
+    description: "Devano Modal Implementation",
+    long_description: "",
     folder_path: "atoms/layout",
     npm_deps: &[],
 };

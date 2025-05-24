@@ -145,7 +145,7 @@ export default function App() {
 "#;
 
 const ENTRY_CLIENT_LITERAL: &str = r#"
-r#"import { mount, StartClient } from "@solidjs/start/client";
+import { mount, StartClient } from "@solidjs/start/client";
 
 mount(() => <StartClient />, document.getElementById("app")!);
 "#;
